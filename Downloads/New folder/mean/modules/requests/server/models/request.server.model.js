@@ -1,0 +1,54 @@
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+var mongoose = require('mongoose'),
+  Schema = mongoose.Schema;
+
+/**
+ * Request Schema
+ */
+var RequestSchema = new Schema({
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  title: {
+    type: String,
+    default: '',
+    trim: true,
+    required: 'Title cannot be blank'
+  },
+  content: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  category: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  bounty: {
+    type: Number,
+    default: '',
+    trim: true,
+    required: 'You must set your bounty'
+  },
+  status: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  taken_by: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
+});
+
+mongoose.model('Request', RequestSchema);

@@ -1,0 +1,43 @@
+<section ng-controller="RequestsController" ng-init="find()">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Requests</h1>
+            </div>
+            <div class="col-md-4" style="margin-top: 2em">
+                <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search"/>
+            </div>
+            <div class="col-sm-2" style="margin-top: 2em; width: 135px; float: right">
+                <button class="form-control btn-info" style="width: 130px">
+                    <span class="glyphicon glyphicon-sort"> </span> Sort by Date
+                </button>
+            </div>
+            <div class="col-sm-2" style="margin-top: 2em; width: 135px; float: right ">
+                <button class="form-control btn-info" style="width: 130px">
+                    <i class="glyphicon glyphicon-sort"></i>
+                    Sort by <i class="glyphicon glyphicon-usd"></i> 
+                </button>
+            </div>
+           
+        </div>
+    </div>
+    <div class="list-group">
+        <a ng-repeat="request in requests | filter: search | orderBy: 'created'"
+           ui-sref="requests.view({ requestId: request._id })"
+           class="list-group-item">
+            <h4 class="list-group-item-heading" ng-bind="request.title"></h4>
+            <span class="glyphicon glyphicon-usd"></span>: {{request.bounty}}
+            <p class="list-group-item-text" ng-bind="request.content"></p>
+            <small class="list-group-item-text">
+                Requested on
+                <span ng-bind="request.created | date:'mediumDate'"></span>
+                by
+                <span ng-if="request.user" ng-bind="request.user.displayName"></span>
+                <span ng-if="!request.user">Deleted User</span>
+            </small>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" ng-if="requests.$resolved && !requests.length">
+        No Requests yet, why don't you <a ui-sref="requests.create">create one</a>?
+    </div>
+</section>

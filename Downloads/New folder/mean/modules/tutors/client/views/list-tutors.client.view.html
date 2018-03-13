@@ -1,0 +1,40 @@
+<section>
+  <div class="page-header">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>List Tutors</h1>
+            </div>
+            <div class="col-md-4" style="margin-top: 2em">
+                <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search"/>
+            </div>
+            <div class="col-sm-2" style="margin-top: 2em; width: 135px; float: right">
+                <button class="form-control btn-info" style="width: 130px">
+                    <span class="glyphicon glyphicon-sort"> </span> Sort by Rating
+                </button>
+            </div>
+            <div class="col-sm-2" style="margin-top: 2em; width: 135px; float: right ">
+                <button class="form-control btn-info" style="width: 130px">
+                    <i class="glyphicon glyphicon-sort"></i>
+                    Sort by <i class="glyphicon glyphicon-usd"></i> 
+                </button>
+            </div>
+        </div>
+    </div>
+  <div class="list-group">
+    <a ng-repeat="tutor in vm.tutors"
+       ui-sref="tutors.view({ tutorId: tutor._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="tutor.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="tutor.user" ng-bind="tutor.user.displayName"></span>
+        <span ng-if="!tutor.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="tutor.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.tutors.$resolved && !vm.tutors.length">
+    No Tutors yet, why don't you <a ui-sref="tutors.create">create one</a>?
+  </div>
+</section>

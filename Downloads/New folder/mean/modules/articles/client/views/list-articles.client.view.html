@@ -1,0 +1,33 @@
+<section ng-controller="MembersController" ng-init="find()">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Resources</h1>
+            </div>
+            <div class="col-md-4" style="margin-top: 2em">
+                <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" />
+            </div>
+            <div class="col-sm-2" style="margin-top: 2em; width: 135px; float: right">
+             <button class="form-control btn-info" style="width: 130px">
+                    <span class="glyphicon glyphicon-sort"> </span> Sort by Date
+                </button>
+            </div>
+        </div>
+    </div>
+    
+   <div class="list-group">
+        <a ng-repeat="article in articles |filter : search" ui-sref="articles.view({articleId: article._id})" class="list-group-item">
+            <small class="list-group-item-text">
+                Posted on
+                <span ng-bind="article.created | date:'mediumDate'"></span>
+                by
+                <span ng-bind="article.user.displayName"></span>
+            </small>
+            <h4 class="list-group-item-heading" ng-bind="article.title"></h4>
+            <p class="list-group-item-text" ng-bind="article.content"></p>
+    </a>
+  </div>
+    <div class="alert alert-warning text-center" ng-if="articles.$resolved && !articles.length">
+        No articles yet, why don't you <a ui-sref="articles.create">create one</a>?
+    </div>
+</section>

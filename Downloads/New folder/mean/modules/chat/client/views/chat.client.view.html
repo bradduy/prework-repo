@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>Chat</title>
+      <script src="/jquery.js"></script>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="../controllers/client.controller.js"></script>
+      <link rel="stylesheet" type="text/css" href="../css/chat.css" />
+  </head>
+  <body>
+    <!-- The chat view -->
+<section class="container" ng-controller="ChatController">
+    <div class="page-header">
+      <h1>Public Chat room</h1>
+    </div>
+    <!-- The message form -->
+    <form class="col-xs-12 col-md-offset-4 col-md-4" ng-submit="sendMessage();">
+      <fieldset class="row">
+        <div class="input-group">
+          <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-primary" ng-disabled="!messageText.length">Submit</button>
+          </span>
+        </div>
+      </fieldset>
+    </form>
+    <ul class="list-unstyled">
+      <!-- List all messages -->
+      <li class="col-xs-12 col-md-offset-4 col-md-4 chat-message" ng-repeat="message in messages">
+        <small class="pull-right text-muted" ng-bind="message.created | date:'mediumTime'"></small>
+        <img ng-src="{{message.profileImageURL}}" alt="{{message.username}}" class="pull-left chat-profile-image" />
+        <div class="pull-left chat-message-details">
+          <strong ng-bind="message.username"></strong>
+          <br>
+          <span ng-bind="message.text"></span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <div id="wrapper">
+
+    <div id="loginForm">
+      <h3>Username</h3>
+      <input type="text" id="txtUsername" />
+      <input type="button" value="Register" id="btnRegister" />
+    </div>
+
+    <div id="chatForm">
+      <div id="left">
+        <div id="boxTitle">Users Online</div>
+        <div id="boxContent"></div>
+      </div>
+      <div id="right">
+        <div id="sayHi">
+          Hello <span id="currentUser">Teo</span>
+          <input type="button" id="btnLogout" value="Logout">
+        </div>
+
+        <div id="listMessages">
+        </div>
+
+        <div id="thongbao"></div>
+
+        <input type="text" id="txtMessage" />
+        <input type="button" id="btnSendMessage" value="Send" />
+
+      </div>
+    </div>
+  </div>
+
+  </body>
+</html>
